@@ -9,7 +9,7 @@ Usages:
 ```c++
 network net;
 // read BN/MRF graph from file
-net.readfromfile(FILE);
+net.readfromfile(inputfile);
 // approximate inference using mean field
 network::mfresults mf = net.mf();
 // approximate inference using loopy belief propagation
