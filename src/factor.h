@@ -11,25 +11,24 @@ public:
 	typedef std::map<int,int> scope;
 	typedef std::map<int,int> assign;
 
-	// build blank factors (all values=d) over scope 
 	factor(const scope &sc, double d=0.0);
-
 
 	double operator()(const assign &i) const;
 	double &operator()(const assign &i);
 
 	// get and set value of the i-th entry
-	double get(size_t i) const { return  f[i]; }
-	void set(size_t i, double val) { f[i] = val; }
-	int getsize() const { return f.size(); }
+	double get(size_t i) const { return  values[i]; }
+	void set(size_t i, double val) { values[i] = val; }
+	int getsize() const { return values.size(); }
 
 	// fill the entries with same value
 	factor &fill(double val);
 
-	void print(std::ostream &os) const;
-
+	// reduce the factor to only those assignments consistent with a
 	factor reduce(const assign &a) const;
+	// sum out those variables mentioned in the scope tosumout
 	factor marginalize(const scope &tosumout) const;
+
 	factor operator*(const factor &f2) const;
 	factor operator/(const factor &f2) const;
 	factor operator+(const factor &f2) const;
@@ -54,36 +53,23 @@ public:
 	factor &operator+=(double d);
 	factor &operator-=(double d);
 
-	scope getscope() const { return s; }
+	// returns the scope of this factor
+	scope getscope() const { return scp; }
+
+	void print(std::ostream &os) const;
 private:
-	struct index {
-		index(const factor &f);
-		index(const factor &f, const assign &a);
+	scope scp;
+	std::vector<double> values;
+	std::map<int,int> stride;
+	int size;
 
-		index &operator++();
-		const index operator++(int);
-		void incexcept(const assign &except);
-		void incalso(index &i2);
-		void incalso(index &i2, index &i3);
-		double operator*() const;
-
-		int i;
-		const factor &f;
-		std::vector<int> a;
-
-		bool incelem(int ii, int maxs);
-	};
-
-	// index must have been created with this factor
-	double operator()(const index &i) const;
-	double &operator()(const index &i);
-
-	int assign2index(const assign &a) const;
-
-	scope s;
-	int sz;
-	std::vector<double> f;
-	std::vector<int> stride;
+	int getsize(const scope &s) const;
+	int getindex(const assign &i) const;
+	scope scopeunion(const scope &s2) const;
+	scope scopeminus(const std::map<int,int> &a) const;
+	assign initassign(const scope &s, int val) const;
+	void nextassign(int &index, const scope &s, assign &a) const;
+	void nextassign(int &j, int &k, const scope &s, assign &a, const factor &f2) const;
 };
 
 #endif
