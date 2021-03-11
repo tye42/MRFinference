@@ -35,13 +35,13 @@ Input file format:
 
 Mean Field and Loopy Belief Propagation are two common [variational inference](https://en.wikipedia.org/wiki/Variational_Bayesian_methods) approaches for graphical models (Bayesian network and Markov random field). In many cases, when exact inference is infeasible, variational inference uses a simplified model to run efficient inference and give approximate posterior distributions.
 
-Mean field assumes the variational distribution *Q* factorize over each variables: Q(X) = &prod;<sub>i</sub> Q(x<sub>i</sub>). Loopy belief propagation is a generalization of belief propagation on cluster graphs contain cycles. However, few research has been done to compare the performance of MF and LBP. 
+Mean field assumes the variational distribution *Q* factorize over each variables: <math>Q(X) = &prod;<sub>i</sub> Q(x<sub>i</sub>)</math>. Loopy belief propagation is a generalization of belief propagation on cluster graphs contain cycles. However, few research has been done to compare the performance of MF and LBP. 
 
 Pairwise Markov Network is a class of MRF where all factors associated with either one node or one pair, it is commonly used as a benchmark for comparison of inference algorithms. Here I used three types of pairwise MRF structures: 2D grid, regular graph, and complete graph with binary variables.
 
-The factors in 2D grids were generated using [Ising model](https://en.wikipedia.org/wiki/Ising_model). The energy function of Ising model has the following form: ϵ<sub>i</sub> (x<sub>i</sub> )=u<sub>i</sub> x<sub>i</sub> for unary factor, and ϵ<sub>i,j</sub> (x<sub>i</sub>,x<sub>j</sub> )=w<sub>i,j</sub> x<sub>i</sub> x<sub>j</sub> for pairwise factor. 
+The factors in 2D grids were generated using [Ising model](https://en.wikipedia.org/wiki/Ising_model). The energy function of Ising model has the following form: <math>ϵ<sub>i</sub> (x<sub>i</sub>)=u<sub>i</sub> x<sub>i</sub></math> for unary factor, and <math>ϵ<sub>i,j</sub> (x<sub>i</sub>,x<sub>j</sub>)=w<sub>i,j</sub> x<sub>i</sub> x<sub>j</sub></math> for pairwise factor. 
 
-Here, each u<sub>i</sub> is uniformly draw from [-1,1], and each w<sub>i,j</sub> is uniformly draw from [-C,C], where C is a positive constant defined the interaction strength of the system. 
+Here, each u<sub>i</sub> is uniformly draw from [-1,1], and each w<sub>i,j</sub> is uniformly draw from [-C,C], where *C* is a positive constant defined the interaction strength of the system. 
 
 Additionally, the logarithm of each entry of factors in regular and complete graph is draw independently from a normal distribution with mean 0 and standard deviation β, and called ExpGauss.
 
