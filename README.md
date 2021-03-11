@@ -31,7 +31,7 @@ Input file format:
 ...
 ```
 
-## Comparision between MF and LBP
+## Comparison between MF and LBP
 
 *Mean Field* and *Loopy Belief Propagation* are two common [variational inference](https://en.wikipedia.org/wiki/Variational_Bayesian_methods) approaches for graphical models (Bayesian network and Markov random field). In many cases, when exact inference is infeasible, variational inference uses a simplified model to run efficient inference and give approximate posterior distributions.
 
